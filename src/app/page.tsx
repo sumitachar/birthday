@@ -240,11 +240,14 @@ export default function Home() {
     setIsAutoSliding(false);
   };
 
-  const closeImageModal = (e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setSelectedImage(null);
-    setIsAutoSliding(true);
-  };
+const closeImageModal = (
+  e?: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>
+) => {
+  e?.stopPropagation?.();
+  setSelectedImage(null);
+  setIsAutoSliding(true);
+};
+
 
   const toggleMute = () => {
     if (muted && !hasPlayed.current) {
@@ -589,10 +592,10 @@ export default function Home() {
                 onTouchStart={closeImageModal}
                 aria-label="Close image modal"
                 tabIndex={0}
-                onKeyDown={(e:any) => {
+                onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    closeImageModal(e);
+                    closeImageModal();
                   }
                 }}
               >
