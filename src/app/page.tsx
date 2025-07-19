@@ -573,7 +573,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={(e) => closeImageModal}
+            onClick={() => closeImageModal}
           >
             <motion.div
               className={styles.modalContent}
@@ -589,10 +589,10 @@ export default function Home() {
                 onTouchStart={closeImageModal}
                 aria-label="Close image modal"
                 tabIndex={0}
-                onKeyDown={(e) => {
+                onKeyDown={(e:any) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    closeImageModal(e as any);
+                    closeImageModal(e);
                   }
                 }}
               >
