@@ -3,16 +3,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Slider from 'react-slick'; // Default import for Slider
+import Slider from 'react-slick';
 import styles from './page.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 // Constants
 const BIRTHDAY_DETAILS = {
-  dob: '17 July 2000',
+  dob: '27 July 2006',
   countdownStart: 5,
-  name: 'Special Someone'
+  name: 'Miss Bindai'
 };
 
 const BANNER_QUOTES = [
@@ -61,9 +61,9 @@ const BANNER_IMAGES = [
 ];
 
 const VIDEO_ITEMS = [
-  { src: '/assets/videos/video-12.mp4', title: "Birthday Surprise 2022" },
-  { src: '/assets/videos/video-13.mp4', title: "Friends Gathering" },
-  { src: '/assets/videos/video-11.mp4', title: "Friends Gathering" },
+  { src: '/assets/videos/video-12.mp4', title: "The more you praise and celebrate your life, the more there is in life to celebrate" },
+  { src: '/assets/videos/video-13.mp4', title: "Wishing you a day filled with love, laughter, and everything you've been hoping for." },
+  { src: '/assets/videos/video-11.mp4', title: "May your birthday be the beginning of a year full of happiness" },
 ];
 
 const LOVE_QUOTES = [
@@ -197,23 +197,57 @@ export default function Home() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isAutoSliding, setIsAutoSliding] = useState(true);
-  const [muted, setMuted] = useState(true); // Start muted to comply with autoplay policy
+  const [muted, setMuted] = useState(true);
+  const [audioPrepared, setAudioPrepared] = useState(false);
 
   const bannerAudioRef = useRef<HTMLAudioElement | null>(null);
   const galleryAudioRef = useRef<HTMLAudioElement | null>(null);
-  const hasPlayed = useRef(false); // Track if birthday audio has played
-  const sliderRef = useRef<Slider>(null); // Use Slider component type directly
+  const hasPlayed = useRef(false);
+  const sliderRef = useRef<Slider>(null);
+  const userInteracted = useRef(false);
 
-  // Countdown timer
+  // Prepare audio when component mounts
+  useEffect(() => {
+    const audio = new Audio('/assets/audio/birthday.mp3');
+    audio.load();
+    bannerAudioRef.current = audio;
+    setAudioPrepared(true);
+    
+    return () => {
+      if (bannerAudioRef.current) {
+        bannerAudioRef.current.pause();
+        bannerAudioRef.current = null;
+      }
+      if (galleryAudioRef.current) {
+        galleryAudioRef.current.pause();
+        galleryAudioRef.current = null;
+      }
+    };
+  }, []);
+
+  // Countdown timer and audio handling
   useEffect(() => {
     if (countdown > 0) {
       const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
       return () => clearTimeout(timer);
     } else {
-      const hide = setTimeout(() => setShowOverlay(false), 1000);
+      const hide = setTimeout(() => {
+        setShowOverlay(false);
+        // Auto-play audio when countdown completes if user hasn't interacted yet
+        if (!userInteracted.current && audioPrepared && bannerAudioRef.current) {
+          bannerAudioRef.current.play()
+            .then(() => {
+              setMuted(false);
+              hasPlayed.current = true;
+            })
+            .catch(error => {
+              console.error('Auto-play failed:', error);
+            });
+        }
+      }, 1000);
       return () => clearTimeout(hide);
     }
-  }, [countdown]);
+  }, [countdown, audioPrepared]);
 
   const handleMouseEnter = (index: number) => {
     if (galleryAudioRef.current) {
@@ -240,25 +274,29 @@ export default function Home() {
     setIsAutoSliding(false);
   };
 
-const closeImageModal = (
-  e?: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>
-) => {
-  e?.stopPropagation?.();
-  setSelectedImage(null);
-  setIsAutoSliding(true);
-};
-
+  const closeImageModal = (
+    e?: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>
+  ) => {
+    e?.stopPropagation?.();
+    setSelectedImage(null);
+    setIsAutoSliding(true);
+  };
 
   const toggleMute = () => {
-    if (muted && !hasPlayed.current) {
-      // First interaction: play birthday audio
-      const audio = new Audio('/assets/audio/birthday.mp3');
-      bannerAudioRef.current = audio;
-      audio.play().catch((error) => console.error('Initial audio playback failed:', error));
-      hasPlayed.current = true; // Mark as played
-      setMuted(false); // Unmute to allow gallery audio
+    userInteracted.current = true;
+    
+    if (muted) {
+      // Unmute and play audio
+      setMuted(false);
+      if (bannerAudioRef.current) {
+        bannerAudioRef.current.play()
+          .then(() => {
+            hasPlayed.current = true;
+          })
+          .catch(error => console.error('Audio play failed:', error));
+      }
     } else {
-      // Subsequent clicks: mute all audio
+      // Mute all audio
       setMuted(true);
       if (galleryAudioRef.current) {
         galleryAudioRef.current.pause();
@@ -266,7 +304,6 @@ const closeImageModal = (
       }
       if (bannerAudioRef.current) {
         bannerAudioRef.current.pause();
-        bannerAudioRef.current.currentTime = 0;
       }
     }
   };
@@ -307,7 +344,11 @@ const closeImageModal = (
       </div>
 
       {/* Audio control button */}
-      <button className={styles.muteButton} onClick={toggleMute} aria-label={muted ? 'Play audio' : 'Mute audio'}>
+      <button 
+        className={styles.muteButton} 
+        onClick={toggleMute} 
+        aria-label={muted ? 'Play audio' : 'Mute audio'}
+      >
         {muted ? (
           <svg viewBox="0 0 24 24" width="24" height="24">
             <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
@@ -361,7 +402,7 @@ const closeImageModal = (
                 </motion.div>
 
                 <p className={styles.overlaySubtext}>
-                  Preparing something special...
+                  {audioPrepared ? "Ready to celebrate!" : "Preparing audio..."}
                 </p>
               </motion.div>
             </div>
@@ -428,25 +469,6 @@ const closeImageModal = (
               transition={{ delay: 0.5 }}
             >
               <p>{BANNER_QUOTES[currentBanner % BANNER_QUOTES.length]}</p>
-            </motion.div>
-          </section>
-
-          {/* Custom Banner Image Section */}
-          <section className={styles.customBannerSection}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className={styles.customBannerWrapper}
-            >
-              <div className="relative w-[40rem] h-[70vw]">
-                <Image
-                  src="/assets/images/shrutibirthday.png"
-                  alt="Shruti"
-                  fill
-                  className="object-cover"
-                />
-              </div>
             </motion.div>
           </section>
 
@@ -576,7 +598,7 @@ const closeImageModal = (
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={() => closeImageModal}
+            onClick={() => closeImageModal()}
           >
             <motion.div
               className={styles.modalContent}

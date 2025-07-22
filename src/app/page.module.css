@@ -7,6 +7,7 @@
   color: #e0e0e0; /* Light gray text for dark theme */
   font-family: 'Poppins', sans-serif;
   padding: 0;
+  width:100vw;
 }
 
 /* Background */
@@ -94,7 +95,7 @@
 .overlayContent {
   width: 100%;
   max-width: 600px;
-  padding: 20px;
+  /* margin:2%; */
 }
 
 .overlayCard {
@@ -102,7 +103,7 @@
   backdrop-filter: blur(10px); /* Frosted glass effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */
   border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
-  padding: 3rem;
+  /* padding: 3rem; */
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
   text-align: center;
@@ -507,7 +508,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .modalContent {
@@ -613,9 +614,9 @@
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .overlayCard {
+  /* .overlayCard {
     padding: 2rem 1.5rem;
-  }
+  } */
   
   .dobText {
     font-size: 1.5rem;
