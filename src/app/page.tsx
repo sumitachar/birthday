@@ -16,22 +16,22 @@ const BIRTHDAY_DETAILS = {
 };
 
 const BANNER_QUOTES = [
-  '"Wishing you a day filled with love, laughter, and unforgettable memories."',
+  '"Hey! Tithi, Wishing you a day filled with love, laughter, and unforgettable memories."',
   '"Another year of wonderful you! Happy Birthday!"',
   '"Celebrating the amazing person you are today!"',
   '"May your day be as special as you are to us!"'
 ];
 
 const GALLERY_ITEMS = [
-  { src: '/assets/images/memory-4.jpeg', audio: '/assets/audio/audio-10.mp3' },
-  { src: '/assets/images/memory-5.jpeg', audio: '/assets/audio/audio-3.mp3' },
-  { src: '/assets/images/memory-6.jpeg', audio: '/assets/audio/audio-13.mp3' },
-  { src: '/assets/images/memory-7.jpeg', audio: '/assets/audio/audio-4.mp3' },
+  { src: '/assets/images/memory-29.jpeg', audio: '/assets/audio/audio-21.mp3' },
+  { src: '/assets/images/memory-5.jpeg', audio: '/assets/audio/audio-22.mp3' },
+  { src: '/assets/images/memory-6.jpeg', audio: '/assets/audio/audio-23.mp3' },
+  { src: '/assets/images/memory-7.jpeg', audio: '/assets/audio/audio-24.mp3' },
   { src: '/assets/images/memory-8.jpeg', audio: '/assets/audio/audio-14.mp3' },
-  { src: '/assets/images/memory-1.jpeg', audio: '/assets/audio/audio-2.mp3' },
-  { src: '/assets/images/memory-2.jpeg', audio: '/assets/audio/audio-20.mp3' },
+  { src: '/assets/images/memory-1.jpeg', audio: '/assets/audio/audio-20.mp3' },
+  { src: '/assets/images/memory-2.jpeg', audio: '/assets/audio/audio-5.mp3' },
   { src: '/assets/images/memory-3.jpeg', audio: '/assets/audio/audio-1.mp3' },
-  { src: '/assets/images/memory-9.jpeg', audio: '/assets/audio/audio-5.mp3' },
+  { src: '/assets/images/memory-9.jpeg', audio: '/assets/audio/audio-2.mp3' },
   { src: '/assets/images/memory-10.jpeg', audio: '/assets/audio/audio-15.mp3' },
   { src: '/assets/images/memory-11.jpeg', audio: '/assets/audio/audio-6.mp3' },
   { src: '/assets/images/memory-12.jpeg', audio: '/assets/audio/audio-16.mp3' },
@@ -51,16 +51,18 @@ const GALLERY_ITEMS = [
   { src: '/assets/images/memory-26.jpeg', audio: '/assets/audio/audio-3.mp3' },
   { src: '/assets/images/memory-27.jpeg', audio: '/assets/audio/audio-2.mp3' },
   { src: '/assets/images/memory-28.jpeg', audio: '/assets/audio/audio-10.mp3' },
+  { src: '/assets/images/memory-4.jpeg', audio: '/assets/audio/audio-10.mp3' },
 ];
 
 const BANNER_IMAGES = [
-  { src: '/assets/images/banner-1.jpeg', caption: "" },
   { src: '/assets/images/banner-2.jpeg', caption: "" },
   { src: '/assets/images/banner-3.jpeg', caption: "" },
+  { src: '/assets/images/banner-6.jpeg', caption: "" },
   { src: '/assets/images/banner-4.jpeg', caption: "" },
 ];
 
 const VIDEO_ITEMS = [
+  { src: '/assets/videos/video-1.mp4', title: "May your birthday be the beginning of a year full of happiness" },
   { src: '/assets/videos/video-12.mp4', title: "The more you praise and celebrate your life, the more there is in life to celebrate" },
   { src: '/assets/videos/video-13.mp4', title: "Wishing you a day filled with love, laughter, and everything you've been hoping for." },
   { src: '/assets/videos/video-11.mp4', title: "May your birthday be the beginning of a year full of happiness" },
@@ -212,7 +214,7 @@ export default function Home() {
     audio.load();
     bannerAudioRef.current = audio;
     setAudioPrepared(true);
-    
+
     return () => {
       if (bannerAudioRef.current) {
         bannerAudioRef.current.pause();
@@ -284,7 +286,7 @@ export default function Home() {
 
   const toggleMute = () => {
     userInteracted.current = true;
-    
+
     if (muted) {
       // Unmute and play audio
       setMuted(false);
@@ -344,9 +346,9 @@ export default function Home() {
       </div>
 
       {/* Audio control button */}
-      <button 
-        className={styles.muteButton} 
-        onClick={toggleMute} 
+      <button
+        className={styles.muteButton}
+        onClick={toggleMute}
         aria-label={muted ? 'Play audio' : 'Mute audio'}
       >
         {muted ? (
@@ -472,6 +474,50 @@ export default function Home() {
             </motion.div>
           </section>
 
+          {/* Video Section */}
+          <section className={styles.videoSection}>
+            <motion.h2
+              className={styles.sectionTitle}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className={styles.marqueeContainer}>
+                <span className={styles.marqueeText}>
+                  <span className={styles.marqueeTextClone}>
+                    <span className={styles.titleDecor}>✦</span> Happy Birthday, ❤️ Tithi ❤️ <span className={styles.titleDecor}>✦</span>
+                    <div className={styles.underline}></div><br /><br />
+                  </span>
+                </span>
+              </div>
+              <span className={styles.titleDecor}>🎥</span> Video Memories
+            </motion.h2>
+
+            <div className={styles.videoContainer}>
+              {VIDEO_ITEMS.map((v, idx) => (
+                <motion.div
+                  key={idx}
+                  className={styles.videoCard}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + idx * 0.1, duration: 0.6 }}
+                >
+                  <div className={styles.videoWrapper}>
+                    <video
+                      src={v.src}
+                      controls
+                      className={styles.video}
+                      poster={`/assets/video-thumbs/${idx + 1}.jpg`}
+                      preload="metadata"
+                      style={{ zIndex: 999 }}
+                    />
+                  </div>
+                  <h3 className={styles.videoTitle}>{v.title}</h3>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
           {/* Gallery Section */}
           <section className={styles.gallerySection}>
             <motion.h2
@@ -480,6 +526,14 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
+              <div className={styles.marqueeContainer}>
+                <span className={styles.marqueeText}>
+                  <span className={styles.marqueeTextClone}>
+                    <span className={styles.titleDecor}>✦</span> Happy Birthday, ❤️ Sana ❤️ <span className={styles.titleDecor}>✦</span>
+                    <div className={styles.underline}></div><br /><br />
+                  </span>
+                </span>
+              </div>
               <span className={styles.titleDecor}>✦</span> Memory Gallery <span className={styles.titleDecor}>✦</span>
             </motion.h2>
 
@@ -509,42 +563,6 @@ export default function Home() {
                     />
                   </div>
                   <div className={styles.cardCaption}></div>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-
-          {/* Video Section */}
-          <section className={styles.videoSection}>
-            <motion.h2
-              className={styles.sectionTitle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <span className={styles.titleDecor}>🎥</span> Video Memories
-            </motion.h2>
-
-            <div className={styles.videoContainer}>
-              {VIDEO_ITEMS.map((v, idx) => (
-                <motion.div
-                  key={idx}
-                  className={styles.videoCard}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + idx * 0.1, duration: 0.6 }}
-                >
-                  <div className={styles.videoWrapper}>
-                    <video
-                      src={v.src}
-                      controls
-                      className={styles.video}
-                      poster={`/assets/video-thumbs/${idx + 1}.jpg`}
-                      preload="metadata"
-                      style={{ zIndex: 999 }}
-                    />
-                  </div>
-                  <h3 className={styles.videoTitle}>{v.title}</h3>
                 </motion.div>
               ))}
             </div>
