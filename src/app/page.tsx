@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
@@ -208,6 +209,11 @@ export default function Home() {
   const sliderRef = useRef<Slider>(null);
   const userInteracted = useRef(false);
 
+  // Prevent right-click on media and entire page
+  const preventContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
   // Prepare audio when component mounts
   useEffect(() => {
     const audio = new Audio('/assets/audio/birthday.mp3');
@@ -333,7 +339,7 @@ export default function Home() {
   };
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} onContextMenu={preventContextMenu}>
       {/* Cursor Sea Smoke Effect */}
       <CursorSeaSmokeEffect />
 
@@ -454,7 +460,10 @@ export default function Home() {
                         priority={index === 0}
                         style={{ zIndex: 999 }}
                         objectFit="cover"
+                        draggable={false}
+                        onContextMenu={preventContextMenu}
                       />
+                      <div className={styles.mediaOverlay}></div>
                     </div>
                     <div className={styles.bannerCaption}>
                       <p>{item.caption}</p>
@@ -510,7 +519,10 @@ export default function Home() {
                       poster={`/assets/video-thumbs/${idx + 1}.jpg`}
                       preload="metadata"
                       style={{ zIndex: 999 }}
+                      draggable={false}
+                      onContextMenu={preventContextMenu}
                     />
+                    <div className={styles.mediaOverlay}></div>
                   </div>
                   <h3 className={styles.videoTitle}>{v.title}</h3>
                 </motion.div>
@@ -560,7 +572,10 @@ export default function Home() {
                       className={styles.galleryImage}
                       sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       style={{ zIndex: 999 }}
+                      draggable={false}
+                      onContextMenu={preventContextMenu}
                     />
+                    <div className={styles.mediaOverlay}></div>
                   </div>
                   <div className={styles.cardCaption}></div>
                 </motion.div>
@@ -651,7 +666,10 @@ export default function Home() {
                   fill
                   className={styles.modalImage}
                   style={{ zIndex: 999 }}
+                  draggable={false}
+                  onContextMenu={preventContextMenu}
                 />
+                <div className={styles.mediaOverlay}></div>
               </div>
             </motion.div>
           </motion.div>
