@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 // Constants
 const BIRTHDAY_DETAILS = {
   dob: '27 July 2006',
-  countdownStart: 5,
+  countdownStart: 19,
   name: 'Miss Bindai'
 };
 
