@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================
+   Root
+================================ */
+
+:root {
+  --radius: 1.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #170d2e;
+  color: #fbf1e6;
+  overflow-x: hidden;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================================
+   Scrollbar
+================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #170d2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff8fb1;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6f9c;
+}
+
+/* ================================
+   Selection
+================================ */
+
+::selection {
+  background: rgba(255, 143, 177, 0.4);
+  color: white;
+}
+
+/* ================================
+   Star Background
+================================ */
+
+.starfield {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.55) 1px, transparent 2px),
+    radial-gradient(circle at 70% 50%, rgba(255,255,255,.35) 1px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,.45) 1px, transparent 2px),
+    radial-gradient(circle at 85% 25%, rgba(255,255,255,.55) 1px, transparent 2px),
+    radial-gradient(circle at 60% 60%, rgba(255,255,255,.3) 1px, transparent 2px);
+
+  background-size: 350px 350px;
+  animation: starsMove 80s linear infinite;
+}
+
+@keyframes starsMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 350px 350px;
+  }
+}
+
+/* ================================
+   Floating Animation
+================================ */
+
+.animate-float {
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: .9;
+  }
+
+  100% {
+    transform: translateY(-130vh);
+    opacity: 0;
+  }
+}
+
+/* ================================
+   Pulse Glow
+================================ */
+
+.glow {
+  animation: glow 2.8s ease-in-out infinite;
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px rgba(255, 182, 193, .4),
+      0 0 30px rgba(255, 182, 193, .15);
+  }
+
+  50% {
+    box-shadow:
+      0 0 20px rgba(255, 182, 193, .7),
+      0 0 60px rgba(255, 182, 193, .3);
+  }
+}
+
+/* ================================
+   Heartbeat
+================================ */
+
+.animate-heartbeat {
+  animation: heartbeat 1.3s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.08);
+  }
+
+  50% {
+    transform: scale(.95);
+  }
+
+  75% {
+    transform: scale(1.12);
+  }
+}
+
+/* ================================
+   Slow Zoom
+================================ */
+
+.animate-zoom {
+  animation: slowZoom 18s linear infinite alternate;
+}
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
+
+/* ================================
+   Fade In
+================================ */
+
+.fade-in {
+  animation: fadeIn .8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ================================
+   Glass Effect
+================================ */
+
+.glass {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+/* ================================
+   Utilities
+================================ */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ================================
+   Reduced Motion
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hero Animations */
+
+@keyframes zoomSlow {
+  0% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-zoom {
+  animation: zoomSlow 18s ease-in-out infinite alternate;
+}
+
+/* Glass Effect */
+
+.glass {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.04);
+}
