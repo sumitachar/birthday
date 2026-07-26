@@ -23,7 +23,7 @@ export const SITE = {
   finalSong: "/audio/final.mp3",
 
   // Email where answers will be sent
-  receiveEmail: "yourgmail@gmail.com",
+  receiveEmail: "sumitachar1997@gmail.com",
 };
 
 export type CardStep = {
@@ -61,7 +61,7 @@ export const GAME_STEPS: CardStep[] = [
 
     background: "/images/bg1.jpeg",
 
-    song: "/audio/intro.mp3",
+    song: "/audio/song1.mp3",
 
     themeColor: "#ffb6c1",
   },
@@ -81,7 +81,7 @@ export const GAME_STEPS: CardStep[] = [
 
     background: "/images/bg2.jpeg",
 
-    song: "/audio/song1.mp3",
+    song: "/audio/song2.mp3",
 
     themeColor: "#FFD166",
   },
@@ -101,7 +101,7 @@ export const GAME_STEPS: CardStep[] = [
 
     background: "/images/bg3.jpeg",
 
-    song: "/audio/song2.mp3",
+    song: "/audio/song3.mp3",
 
     themeColor: "#A78BFA",
   },
@@ -121,7 +121,7 @@ export const GAME_STEPS: CardStep[] = [
 
     background: "/images/bg4.jpeg",
 
-    song: "/audio/song3.mp3",
+    song: "/audio/song4.mp3",
 
     themeColor: "#FB7185",
   },
@@ -140,7 +140,7 @@ export const GAME_STEPS: CardStep[] = [
 
   background: "/images/bg5.jpeg",
 
-  song: "/audio/song4.mp3",
+  song: "/audio/song5.mp3",
 
   themeColor: "#8B5CF6",
 },
@@ -160,7 +160,7 @@ export const GAME_STEPS: CardStep[] = [
 
   background: "/images/bg6.jpeg",
 
-  song: "/audio/song5.mp3",
+  song: "/audio/song6.mp3",
 
   themeColor: "#22C55E",
 },
@@ -171,7 +171,7 @@ export const FINAL_MESSAGE = {
   title: "One Last Thing ❤️",
 
   body: `
-Happy Birthday, Debashruti.
+Happy Birthday, shruti.
 
 I've wanted to tell you something for a long time.
 
@@ -208,7 +208,7 @@ export const ENVELOPE_MESSAGE = {
   title: "A Letter From My Heart ❤️",
 
   body: `
-Happy Birthday, Debashruti.
+Happy Birthday, Tithi.
 
 Some people become special without even realizing it.
 You're one of them.
