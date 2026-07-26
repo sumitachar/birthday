@@ -100,7 +100,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.7 }}
-          className="mt-4 font-script text-5xl text-pink-500 md:text-6xl"
+          className="mt-4 font-script text-6xl text-pink-200 md:text-8xl"
         >
           {SITE.herName}
         </motion.h2>

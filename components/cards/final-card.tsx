@@ -137,19 +137,6 @@ export function FinalCard({ answers }: Props) {
     location.reload();
   }
 
-  function downloadAnswers() {
-    const blob = new Blob(
-      [JSON.stringify(answers, null, 2)],
-      { type: "application/json" }
-    );
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "birthday-memory.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  }
 
   if (loading) {
     return (
@@ -167,7 +154,7 @@ export function FinalCard({ answers }: Props) {
     <div className="relative w-full max-w-4xl">
       <Fireworks />
 
-      {/* Music Player */}
+     
       {/* <MusicPlayer /> */}
 
       {/* Floating Hearts */}
@@ -262,18 +249,6 @@ export function FinalCard({ answers }: Props) {
         {/* Memory Capsule */}
         <MemoryCapsule message={ENVELOPE_MESSAGE.body} />
 
-        {/* Download */}
-        <div className="mt-16 flex justify-center">
-          <Button
-            onClick={downloadAnswers}
-            variant="outline"
-            className="rounded-full px-8 py-6"
-          >
-            <Download className="mr-2 h-5 w-5" />
-            Save Memory Capsule
-          </Button>
-        </div>
-
         {/* Restart */}
         <div className="mt-12 flex justify-center">
           <button
@@ -287,9 +262,6 @@ export function FinalCard({ answers }: Props) {
 
         {/* Signature */}
         <div className="mt-20 text-center">
-          <p className="font-script text-4xl text-pink-300">
-            {FINAL_MESSAGE.signOff}
-          </p>
 
           <p className="mt-5 text-sm text-white/40">
             Made with ❤️ by {SITE.yourName}
