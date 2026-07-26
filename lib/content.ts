@@ -12,7 +12,7 @@ export const SITE = {
   song: "/audio/birthday.mp3",
 
   // Hero Section
-  headline: "Happy Birthday ❤️",
+  headline: "❤️ Happy Birthday ❤️",
   subheadline:
     "Today isn't just another day... It's the day someone incredibly special came into this world.",
 
