@@ -68,8 +68,8 @@ export function HeroSection() {
           transition={{ duration: 0.7 }}
           className="glass mb-5 inline-flex items-center gap-2 rounded-full px-5 py-2"
         >
-          <Cake className="h-4 w-4 text-blue-800" fill="currentColor" />
-          <span className="text-xs uppercase tracking-[4px] text-pink-200">
+          <Cake className="h-4 w-4 text-pink-500" fill="currentColor" />
+          <span className="text-xs uppercase tracking-[4px] text-blue-700">
             Birthday Surprise
           </span>
           <Sparkles className="h-4 w-4 text-yellow-500" />
