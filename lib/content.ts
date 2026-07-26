@@ -2,7 +2,7 @@
 
 export const SITE = {
   // Basic Info
-  herName: "Debashruti",
+  herName: "Sana",
   yourName: "Sumit",
 
   // Hero Image
