@@ -58,21 +58,19 @@ export function GameFlow() {
   ]);
 
 
-  const handleNext = (answer: string) => {
+const handleNext = (answer: string) => {
+  const currentQuestion = GAME_STEPS[currentStep];
 
-    const currentQuestion = GAME_STEPS[currentStep];
+  setAnswers((prev) => [
+    ...prev,
+    {
+      question: currentQuestion.question,
+      answer,
+    },
+  ]);
 
-    setAnswers((prev) => [
-      ...prev,
-      {
-        question: currentQuestion.question,
-        answer,
-      },
-    ]);
-
-
-    setCurrentStep((prev) => prev + 1);
-  };
+  setCurrentStep((prev) => prev + 1);
+};
 
 
   return (

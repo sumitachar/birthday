@@ -112,7 +112,7 @@ export async function POST(req: Request) {
 
       <p>
 
-      ❤️ Made by Sumit
+      ❤️ Made by Your Stranger
 
       </p>
 
